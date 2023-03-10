@@ -1,26 +1,13 @@
 <template>
-  <!-- <img alt="Vue logo" src="./assets/logo.png">
-
-  <Counter :start="10" /> -->
-
-  <!-- <Counter title="Salieron" /> -->
-
-  <Indecision />
+  <div id="app">
+    <div id="nav">
+      <router-link to="/counter">Counter</router-link>
+      <router-link to="/indecision">Indecision</router-link>
+    </div>
+    <router-view></router-view>
+  </div>
 
 </template>
-
-<script>
-import Counter from './components/Counter.vue';
-import Indecision from './components/Indecision.vue';
-
-export default {
-  name: 'App',
-  components: {
-    Counter,
-    Indecision
-  }
-}
-</script>
 
 <style>
 #app {
@@ -30,5 +17,9 @@ export default {
   text-align: center;
   color: #2c3e50;
   margin-top: 60px;
+}
+
+#nav {
+padding: 30px;
 }
 </style>

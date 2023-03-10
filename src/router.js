@@ -1,8 +1,4 @@
-import Vue from "vue";
-import VueRouter from 'vue-router'
 import { createRouter, createWebHistory } from "vue-router"
-    
-// Vue.use(VueRouter)
 
 import Counter from './components/Counter.vue';
 import Indecision from './components/Indecision.vue';
@@ -20,11 +16,11 @@ const routes = [
     }
 ]
 
-const history = createWebHistory()
+const history = createWebHistory(process.env.BASE_URL)
 
 const router = createRouter({
     history,
     routes,
 });
   
-  export default router;
+export default router;
