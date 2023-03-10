@@ -1,7 +1,8 @@
 import Vue from "vue";
 import VueRouter from 'vue-router'
+import { createRouter, createWebHistory } from "vue-router"
     
-Vue.use(VueRouter)
+// Vue.use(VueRouter)
 
 import Counter from './components/Counter.vue';
 
@@ -12,3 +13,12 @@ const routes = [
         component: Counter
     }
 ]
+
+const history = createWebHistory()
+
+const router = createRouter({
+    history,
+    routes,
+});
+  
+  export default router;
