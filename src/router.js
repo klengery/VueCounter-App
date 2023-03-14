@@ -1,18 +1,32 @@
 import { createRouter, createWebHistory } from "vue-router"
 
-import Counter from './components/Counter.vue';
-import Indecision from './components/Indecision.vue';
+const Main = () => import("@/views/Main.vue")
+const Counter = () => import("@/views/Counter.vue")
+const Indecision = () => import("@/views/Indecision.vue")
+const Countries = () => import("@/views/Countries.vue")
 
 const routes = [
     {
-        path: "/counter",
-        name: "counter",
-        component: Counter
-    },
-    {
-        path: "/indecision",
-        name: "indecision",
-        component: Indecision
+        path: "/",
+        name: "main",
+        component: Main,
+        children: [
+            {
+                path: "/counter",
+                name: "counter",
+                component: Counter
+            },
+            {
+                path: "/indecision",
+                name: "indecision",
+                component: Indecision
+            },
+            {
+                path: "/countries",
+                name: "countries",
+                component: Countries
+            }
+        ]
     }
 ]
 

@@ -67,5 +67,9 @@ export default {
         background-color: #5aa67b;
         transition: 0.4s ease-in-out;
     }
+    
+    p, h2{
+        color: #fff
+    }
 
 </style>
