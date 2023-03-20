@@ -1,13 +1,36 @@
 import { createRouter, createWebHistory } from "vue-router"
 
+// Auth
+const Auth = () => import("@/layouts/AuthLayout.vue")
+const Login = () => import("@/views/auth/Login.vue")
+const Register = () => import("@/views/auth/Register.vue")
+
+// Content
 const Main = () => import("@/views/Main.vue")
 const Counter = () => import("@/views/Counter.vue")
 const Indecision = () => import("@/views/Indecision.vue")
 const Countries = () => import("@/views/Countries.vue")
 
+
 const routes = [
     {
-        path: "/",
+        name: "auth",
+        component: Auth,
+        children: [
+            {
+                path: "/login",
+                name: "login",
+                component: Login
+            },
+            {
+                path: "/register",
+                name: "register",
+                component: Register
+            }
+        ]
+    },
+    {
+        path: "/main",
         name: "main",
         component: Main,
         children: [
