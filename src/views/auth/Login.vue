@@ -16,6 +16,8 @@
             <span class="focus-input100" data-placeholder="&#xe80f;"></span>
         </div>
 
+        <p v-if="error" class="error">Has introducido mal el email o la contraseña.</p>
+        
         <div class="container-login100-form-btn m-t-32">
             <button class="login100-form-btn">
                 Login
@@ -31,18 +33,37 @@
 </template>
 
 <script>
+import auth from '@/store/auth'
 export default {
     data(){
         return{
             email: "",
-            password: ""
+            password: "",
+            error: false
         }
     },
     methods: {
-        login(){
-            console.log(this.email)
-            console.log('klen password', this.password)
+        async login(){
+            try {
+                await auth.login(
+                    this.email,
+                    this.password
+                )
+                this.$router.push('/main')
+            } catch (error) {
+                this.error = true
+                console.log(error)
+            }
         }
     }
 }
 </script>
+
+<style scoped>
+
+.error {
+  margin: 1rem 0 0;
+  color: #ff4a96;
+}
+
+</style>
