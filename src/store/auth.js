@@ -1,19 +1,16 @@
 import axios from "axios";
+import Cookies from "js-cookie";
 
 const baseUrl = "https://api.sogcial.com/"
  
 
 export default {
-  // register() {
-  //   const user = { 
-  //       name,
-  //       lastname,
-  //       email, 
-  //       password,
-  //       confirmPassword
-  //   };
-  //   return axios.post(baseUrl + "api/auth/signup", user);
-  // }
+  setUserLogged(userLogged){
+    Cookies.set("userLogged", userLogged)
+  },
+  getUserLogged(){
+    return Cookies.get("userLogged")
+  },
   register(user) {
     return axios.post(baseUrl + 'api/auth/signup', {
       name: user.name,
@@ -32,6 +29,9 @@ export default {
       password
     }
     return axios.post(baseUrl + "api/auth/login", user)
+  },
+  deleteUserLogged(){
+    Cookies.remove("userLogged")
   }
 }
 

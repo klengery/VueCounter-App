@@ -49,6 +49,10 @@ export default {
                     this.email,
                     this.password
                 )
+                const user = {
+                    email: this.email
+                }
+                auth.setUserLogged(user)
                 this.$router.push('/main')
             } catch (error) {
                 this.error = true
