@@ -10,6 +10,7 @@ const Main = () => import("@/views/Main.vue")
 const Counter = () => import("@/views/Counter.vue")
 const Indecision = () => import("@/views/Indecision.vue")
 const Countries = () => import("@/views/Countries.vue")
+const Pools = () => import("@/views/Pools.vue")
 
 
 const routes = [
@@ -48,6 +49,11 @@ const routes = [
                 path: "/countries",
                 name: "countries",
                 component: Countries
+            },
+            {
+                path: "/pools",
+                name: "pools",
+                component: Pools
             }
         ]
     }
