@@ -2,7 +2,7 @@
     <header-main />
     <main>
         <div>
-            <h1>Klen's workspace</h1>
+            <h1>{{ userLogged.name }}'s workspace</h1>
         </div>
         <router-view></router-view>
     </main>
@@ -13,7 +13,7 @@ import auth from '@/store/auth'
 export default {
     computed: {
         userLogged(){
-            return auth.getUserLogged()
+            return JSON.parse(auth.getUserLogged())
         }
     }
 }

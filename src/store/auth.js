@@ -2,9 +2,19 @@ import axios from "axios";
 import Cookies from "js-cookie";
 
 const baseUrl = "https://api.sogcial.com/"
+const token = null
  
 
 export default {
+  authHeader() {
+    let user = JSON.parse(this.getUserLogged())
+
+    if (user && user.access_token) {
+      return { Authorization: 'Bearer ' + user.access_token };
+    } else {
+      return {};
+    }
+  },
   setUserLogged(userLogged){
     Cookies.set("userLogged", userLogged)
   },
@@ -28,27 +38,10 @@ export default {
       email,
       password
     }
-    return axios.post(baseUrl + "api/auth/login", user)
+    return axios.post(baseUrl + "api/auth/login", user);
   },
   deleteUserLogged(){
     Cookies.remove("userLogged")
   }
 }
 
-
-
-
-// import state from './state'
-// import * as actions from './actions'
-// import * as getters from './getters'
-// import * as mutations from './mutations'
-
-// const authModule = {
-//     namespaced: true,
-//     actions,
-//     getters,
-//     mutations,
-//     state
-// }
-
-// export default authModule 

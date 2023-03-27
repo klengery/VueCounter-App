@@ -2,7 +2,7 @@
   <div>
     <h4>Haz clcik en el boton, para ver las pools</h4>
     <div>
-        <button>Ver Pools</button>
+        <button @click="getPools()">Ver Pools</button>
         <ul>
             <li>
                 <div class="contentData"></div>
@@ -13,18 +13,19 @@
 </template>
 
 <script>
+import pool from '@/store/pool'
 export default {
     data(){
         return{
             pools: [],
-            logo: null,
-            baseUrl: "https://api.sogcial.com/"
+            logo: null
         }
     },
     methods:{
         async getPools(){
-            const response = await fetch(this.baseUrl + 'api-football/pools')
-            const {pool} = await response.json()
+            const response = await pool.getAllPool()
+
+            console.log(response)
             this.pools = pool
             console.log(pools)
         }

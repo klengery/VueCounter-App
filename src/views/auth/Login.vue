@@ -45,15 +45,15 @@ export default {
     methods: {
         async login(){
             try {
-                await auth.login(
+                var userLogger = await auth.login(
                     this.email,
                     this.password
                 )
-                const user = {
-                    email: this.email
-                }
-                auth.setUserLogged(user)
+
+                console.log(userLogger.data.result)
+                auth.setUserLogged(JSON.stringify(userLogger.data.result))
                 this.$router.push('/main')
+                
             } catch (error) {
                 this.error = true
                 console.log(error)
