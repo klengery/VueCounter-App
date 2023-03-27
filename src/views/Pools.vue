@@ -4,8 +4,11 @@
     <div>
         <button @click="getPools()">Ver Pools</button>
         <ul>
-            <li>
-                <div class="contentData"></div>
+            <li v-for=" pool in pools" :key="pool">
+                <div class="contentData">
+                    <p>{{ pool.name }}</p>
+                    <img :src="`${pool.image}`">
+                </div>
             </li>
         </ul>
     </div>
@@ -18,16 +21,19 @@ export default {
     data(){
         return{
             pools: [],
-            logo: null
+            logo: null,
+            image: null,
+            baseUrl: "https://api.sogcial.com/"
         }
     },
     methods:{
         async getPools(){
             const response = await pool.getAllPool()
+            const {data} = response.data
 
-            console.log(response)
-            this.pools = pool
-            console.log(pools)
+            this.image = data.image
+            this.pools = data
+            console.log(this.pools)
         }
     }
 }
