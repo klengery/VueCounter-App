@@ -7,6 +7,7 @@
         <li> <router-link style="color: white;" to="/indecision">Indecision</router-link> </li>
         <li> <router-link style="color: white;" to="/countries">Countries</router-link> </li>
         <li> <router-link style="color: white;" to="/pools">Pools</router-link> </li>
+        <li> <router-link style="color: white;" to="/poolState">Pools with State</router-link> </li>
       </ul>
     </div>
 </template>

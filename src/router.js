@@ -1,4 +1,5 @@
 import { createRouter, createWebHistory } from "vue-router"
+import auth from "./store/auth"
 
 // Auth
 const Auth = () => import("@/layouts/AuthLayout.vue")
@@ -11,9 +12,16 @@ const Counter = () => import("@/views/Counter.vue")
 const Indecision = () => import("@/views/Indecision.vue")
 const Countries = () => import("@/views/Countries.vue")
 const Pools = () => import("@/views/Pools.vue")
+const PoolState = () => import("@/views/PoolState.vue")
 
 
 const routes = [
+    // {
+    //     path: "/",
+    //     redirect: to => {
+    //         return { path: "/login"}
+    //     }
+    // },
     {
         name: "auth",
         component: Auth,
@@ -21,7 +29,8 @@ const routes = [
             {
                 path: "/login",
                 name: "login",
-                component: Login
+                component: Login,
+                alias: "/"
             },
             {
                 path: "/register",
@@ -33,6 +42,7 @@ const routes = [
     {
         path: "/main",
         name: "main",
+        meta: {requiresAuth: true},
         component: Main,
         children: [
             {
@@ -54,6 +64,11 @@ const routes = [
                 path: "/pools",
                 name: "pools",
                 component: Pools
+            },
+            {
+                path: "/poolState",
+                name: "poolState",
+                component: PoolState
             }
         ]
     }
