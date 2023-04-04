@@ -2,12 +2,12 @@
   <div>
     <h4>Haz clcik en el boton, para ver las pools</h4>
     <div>
-        <button>Ver Pools</button>
+        <button @click="getPools()">Ver Pools</button>
         <ul>
-            <li>
+            <li v-for=" pool in pools" :key="pool">
                 <div class="contentData">
-                    <p></p>
-                    <img>
+                    <p>{{ pool.name }}</p>
+                    <img :src="`${pool.image}`">
                 </div>
             </li>
         </ul>
@@ -16,8 +16,23 @@
 </template>
 
 <script>
+import poolState from '@/store/poolState'
+import pool from '@/store/pool'
 export default {
-
+    data(){
+        return{
+            pools: []
+        }
+    },
+    methods:{
+        async getPools(){
+            const response = await pool.getAllPool()
+            .then(r => {
+                this.$store.commit('setPool', r)
+            })
+            const {data} = response.data
+        }
+    }
 }
 </script>
 
