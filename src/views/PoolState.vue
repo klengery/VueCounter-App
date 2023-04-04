@@ -7,7 +7,7 @@
             <li v-for=" pool in pools" :key="pool">
                 <div class="contentData">
                     <p>{{ pool.name }}</p>
-                    <img :src="`${pool.image}`">
+                    <!-- <img :src="`${pool.image}`"> -->
                 </div>
             </li>
         </ul>
@@ -26,11 +26,13 @@ export default {
     },
     methods:{
         async getPools(){
-            const response = await pool.getAllPool()
+            await pool.getAllPool()
             .then(r => {
-                this.$store.commit('setPool', r)
+                const resp = r.data.data
+                this.pools = resp
+                this.$store.commit('setPool', this.pools)
+                console.log(this.pools)
             })
-            const {data} = response.data
         }
     }
 }
