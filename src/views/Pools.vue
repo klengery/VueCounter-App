@@ -16,7 +16,11 @@
 </template>
 
 <script>
+import { poolStore } from '@/store/poolState'
 import pool from '@/store/pool'
+
+const store = poolStore();
+
 export default {
     data(){
         return{
@@ -28,12 +32,15 @@ export default {
     },
     methods:{
         async getPools(){
+            //AQUI SE GUARDA EL ESTADO
             const response = await pool.getAllPool()
             const {data} = response.data
 
             this.image = data.image
             this.pools = data
             console.log(this.pools)
+
+            store.setPool(this.pools)
         }
     }
 }

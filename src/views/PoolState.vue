@@ -16,8 +16,9 @@
 </template>
 
 <script>
-import poolState from '@/store/poolState'
-import pool from '@/store/pool'
+import { poolStore } from '@/store/poolState'
+const store = poolStore();
+
 export default {
     data(){
         return{
@@ -26,13 +27,10 @@ export default {
     },
     methods:{
         async getPools(){
-            await pool.getAllPool()
-            .then(r => {
-                const resp = r.data.data
-                this.pools = resp
-                this.$store.commit('setPool', this.pools)
-                console.log(this.pools)
-            })
+            //aqui se lee el getters
+           var pools = store.getPools
+
+           console.log('steff', pools)
         }
     }
 }

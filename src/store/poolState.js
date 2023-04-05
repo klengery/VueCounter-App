@@ -1,15 +1,17 @@
-import { createStore } from "vuex";
+import { defineStore } from 'pinia';
 
-
-const storage = createStore({
-    state:{
+export const poolStore = defineStore('pool', {
+    state: () => ({
         pools: []
+    }),
+    actions: {
+        setPool(value){
+            this.pools = value
+        }
     },
-    mutations:{
-        setPool(state, value){
-            state.pools = value
+    getters: {
+        getPools(){
+            return this.pools
         }
     }
-})
-
-export default storage
+  });

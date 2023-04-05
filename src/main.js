@@ -1,4 +1,5 @@
 import { createApp, defineAsyncComponent } from 'vue';
+import { createPinia } from 'pinia'
 import App from './App.vue'
 import router from './router'
 import VueAxios from 'vue-axios'
@@ -28,6 +29,9 @@ router.beforeEach((to, from, next) => {
 // });
 
 const app = createApp(App);
+const pinia = createPinia()
+
+app.use(pinia)
 app.use(router);
 
 app.component('HeaderMain', defineAsyncComponent(() => import("@/components/HeaderMain.vue")));
