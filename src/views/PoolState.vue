@@ -3,6 +3,7 @@
     <h4>Haz clcik en el boton, para ver las pools</h4>
     <div>
         <button @click="getPools()">Ver Pools</button>
+        <p v-if="pools.length == 0" id="poolEmpty">Debes primero llenar en Pool</p>
         <ul>
             <li v-for=" pool in pools" :key="pool">
                 <div class="contentData">
@@ -29,14 +30,19 @@ export default {
         async getPools(){
             //aqui se lee el getters
            var pools = store.getPools
+           this.pools = pools
 
-           console.log('steff', pools)
+           console.log(pools)
         }
     }
 }
 </script>
 
 <style>
+
+    p{
+        color: white;
+    }
 
     .contentData{
         display: flex;
