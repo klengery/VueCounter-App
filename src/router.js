@@ -13,6 +13,7 @@ const Indecision = () => import("@/views/Indecision.vue")
 const Countries = () => import("@/views/Countries.vue")
 const Pools = () => import("@/views/Pools.vue")
 const PoolState = () => import("@/views/PoolState.vue")
+const CreatePool = () => import("@/views/CreatePool")
 
 
 const routes = [
@@ -69,6 +70,11 @@ const routes = [
                 path: "/poolState",
                 name: "poolState",
                 component: PoolState
+            },
+            {
+                path: "/createPool",
+                name: "createPool",
+                component: CreatePool
             }
         ]
     }
