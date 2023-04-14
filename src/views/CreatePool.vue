@@ -67,6 +67,9 @@
 <script>
 import auth from "@/store/auth"
 import pool from '@/store/pool'
+import { poolStore } from '@/store/poolState'
+
+const store = poolStore()
 
 export default {
 data(){
@@ -107,9 +110,12 @@ methods: {
             Object.assign(data, { password: this.password })
 
         Object.assign(data, {image: this.image})
-        await pool.createPool(data)
+        
+        const newPool = await pool.createPool(data)
         auth.setUserLogged(JSON.stringify(userLogger.data.result))
         this.$router.push('/pools')
+        
+        store.newPool(newPool)
         
         console.log(data)
     },

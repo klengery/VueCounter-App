@@ -7,6 +7,9 @@ export const poolStore = defineStore('pool', {
     actions: {
         setPool(value){
             this.pools = value
+        },
+        newPool(newPool){
+            this.pools.push(newPool)
         }
     },
     getters: {
