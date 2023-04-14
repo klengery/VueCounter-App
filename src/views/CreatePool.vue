@@ -22,15 +22,13 @@
             </div>
 
             <div class="wrap-input100 validate-input" data-validate = "Enter a image">
-                <input type="file" @change="previewFiles" multiple>
-                <!-- <input  type="file"  id="image" @change="onFileChange" class="form-control">
-                <input v-model="image" class="input100" type="text" placeholder="Image" required> -->
+                <input type="file" @change="previewFiles" name="image" multiple>
                 <span class="focus-input100"></span>
             </div>
 
             <div class="wrap-input100 validate-input" data-validate = "Is private?">
-                <input type="checkbox" id="checkbox" v-model="isPrivate" @change="showInput()">
-                <label for="checkbox">{{ isPrivate }}</label>
+                <input type="checkbox" id="checkbox" v-model="is_private" @change="showInput()">
+                <label for="checkbox">{{ is_private === 0 ? 'false' : 'true' }}</label>
                 <input class="input100" type="password" placeholder="Is private?">
                 <span class="focus-input100"></span>
             </div>
@@ -47,7 +45,7 @@
 
             <div class="wrap-input100 validate-input" data-validate="Enter a coin">
                 <p class="input100" style="text-align: left;">Currency</p>
-                <select id="currency" name="currency" v-model="currency" class="input100" required>
+                <select id="currency" name="currency" v-model="currency_id" class="input100" required>
                     <option value="1">USD</option>
                     <option value="2">COP</option>
                     <option value="3">BsF</option>
@@ -77,11 +75,11 @@ data(){
         description: "",
         image: null,
         email: "",
-        isPrivate: false,
+        is_private: 0,
         password: "",
         price: "",
-        currency: null,
-        user: null
+        currency_id: null,
+        user_id: null
     }
 },
 created(){
@@ -90,24 +88,25 @@ created(){
 methods: {
     getUser(){
         const user = JSON.parse(auth.getUserLogged())
-        this.user = user.id
-        console.log(this.user)
+        this.user_id = user.id
+        console.log(this.user_id)
     },
     async createPool(){
         const data = {
-            user: this.user,
+            user_id: this.user_id,
             name: this.name,
             description: this.description,
             image: this.image,
             email: this.email,
-            isPrivate: this.isPrivate,
+            is_private: this.is_private ? 1 : 0 ,
             price: this.price,
-            currency: this.currency
+            currency_id: this.currency_id
         }
+        console.log(this.image)
+        if(this.is_private==1)
+            Object.assign(data, { password: this.password })
 
-        if(this.isPrivate==true)
-            Object.assign(data, {password: this.password})
-
+        Object.assign(data, {image: this.image})
         await pool.createPool(data)
         auth.setUserLogged(JSON.stringify(userLogger.data.result))
         this.$router.push('/pools')
@@ -116,12 +115,12 @@ methods: {
     },
     showInput(){
         const passDiv = document.getElementById('password')
-        this.isPrivate === true ? passDiv.style.display='block' : passDiv.style.display='none'
+        this.is_private === true ? passDiv.style.display='block' : passDiv.style.display='none'
     },
     previewFiles(event) {
-      console.log(event.target.files)
-      this.image = event.target.files
-      console.log(this.image)
+        console.log(event.target.files)
+        this.image = event.target.files[0]
+      
     }
     // async getCurrency(){
     //     const response = await pool.getCurrency()

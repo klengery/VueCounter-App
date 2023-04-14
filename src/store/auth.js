@@ -10,7 +10,7 @@ export default {
     let user = JSON.parse(this.getUserLogged())
 
     if (user && user.access_token) {
-      return { Authorization: 'Bearer ' + user.access_token };
+      return { Authorization: 'Bearer ' + user.access_token, 'content-type': 'multipart/form-data' };
     } else {
       return {};
     }
