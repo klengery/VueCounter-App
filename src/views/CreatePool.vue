@@ -112,7 +112,7 @@ methods: {
         Object.assign(data, {image: this.image})
         
         const newPool = await pool.createPool(data)
-        auth.setUserLogged(JSON.stringify(userLogger.data.result))
+        // auth.setUserLogged(JSON.stringify(userLogger.data.result))
         this.$router.push('/pools')
         
         store.newPool(newPool)
