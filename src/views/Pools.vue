@@ -2,7 +2,7 @@
   <div>
     <h4>Haz clcik en el boton, para ver las pools</h4>
     <div>
-        <button @click="getPools()">Ver Pools</button>
+        <!-- <button @click="getPools()">Ver Pools</button> -->
         <ul>
             <li v-for=" pool in pools" :key="pool">
                 <div class="contentData">
@@ -29,6 +29,9 @@ export default {
             image: null,
             baseUrl: "https://api.sogcial.com/"
         }
+    },
+    created(){
+        this.getPools()
     },
     methods:{
         async getPools(){
