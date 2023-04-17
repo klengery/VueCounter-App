@@ -10,6 +10,8 @@ export const poolStore = defineStore('pool', {
         },
         newPool(newPool){
             this.pools.push(newPool)
+            console.log('the state was update')
+            console.log(this.pools)
         }
     },
     getters: {
