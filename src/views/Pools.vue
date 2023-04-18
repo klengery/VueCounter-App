@@ -1,6 +1,5 @@
 <template>
   <div>
-    <h4>Haz clcik en el boton, para ver las pools</h4>
     <div>
         <!-- <button @click="getPools()">Ver Pools</button> -->
         <ul>
@@ -8,6 +7,8 @@
                 <div class="contentData">
                     <p>{{ pool.name }}</p>
                     <img :src="`${pool.image}`">
+                    <button><router-link v-bind:to="'/editPool/'+pool.id"> Edit </router-link></button>
+                    <button><router-link v-bind:to="'/deletePool/'+pool.id"> Delete </router-link></button>
                 </div>
             </li>
         </ul>
@@ -69,6 +70,8 @@ export default {
         padding: 8px;
         border-radius: 10px;
         border: 1px solid purple;
+        height: 2.2rem;
+        width: 5rem;
     }
 
 </style>

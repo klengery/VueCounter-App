@@ -14,6 +14,7 @@ const Countries = () => import("@/views/Countries.vue")
 const Pools = () => import("@/views/Pools.vue")
 const PoolState = () => import("@/views/PoolState.vue")
 const CreatePool = () => import("@/views/CreatePool")
+const EditPool = () => import("@/views/EditPool")
 
 
 const routes = [
@@ -75,6 +76,14 @@ const routes = [
                 path: "/createPool",
                 name: "createPool",
                 component: CreatePool
+            },
+            {
+                path: "/editPool/:id",
+                name: "editPool",
+                component: EditPool
+            },
+            {
+                path: "/deletePool/:id"
             }
         ]
     }

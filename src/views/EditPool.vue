@@ -1,7 +1,7 @@
 <template>
-    <div class="p-l-r">
+  <div class="p-l-r">
         <span class="login100-form-title p-b-41">
-            Create Pool
+            Edit Pool
         </span>
         
         <form class="login100-form validate-form p-b-33 p-t-5" @submit.prevent="createPool">
@@ -57,7 +57,7 @@
             
             <div class="container-login100-form-btn m-t-32">
                 <button class="login100-form-btn">
-                    Create
+                    Update
                 </button>
             </div>
         </form>
@@ -65,75 +65,8 @@
 </template>
 
 <script>
-import auth from "@/store/auth"
-import pool from '@/store/pool'
-import { poolStore } from '@/store/poolState'
-
-const store = poolStore()
-
 export default {
-data(){
-    return{
-        name: "",
-        description: "",
-        image: null,
-        email: "",
-        is_private: 0,
-        password: "",
-        price: "",
-        currency_id: null,
-        user_id: null
-    }
-},
-created(){
-    this.getUser()
-},
-methods: {
-    getUser(){
-        const user = JSON.parse(auth.getUserLogged())
-        this.user_id = user.id
-        console.log(this.user_id)
-    },
-    async createPool(){
-        const data = {
-            user_id: this.user_id,
-            name: this.name,
-            description: this.description,
-            image: this.image,
-            email: this.email,
-            is_private: this.is_private ? 1 : 0 ,
-            price: this.price,
-            currency_id: this.currency_id
-        }
-        console.log(this.image)
-        if(this.is_private==1)
-            Object.assign(data, { password: this.password })
 
-        Object.assign(data, {image: this.image})
-        
-        var newPool = await pool.createPool(data)
-        var dataPool = newPool.data.data
-        store.newPool(dataPool)
-        // auth.setUserLogged(JSON.stringify(userLogger.data.result))
-        
-        this.$router.push('/poolState')
-        
-        console.log(data)
-    },
-    showInput(){
-        const passDiv = document.getElementById('password')
-        this.is_private === true ? passDiv.style.display='block' : passDiv.style.display='none'
-    },
-    previewFiles(event) {
-        console.log(event.target.files)
-        this.image = event.target.files[0]
-      
-    }
-    // async getCurrency(){
-    //     const response = await pool.getCurrency()
-    //     console.log(response)
-    // }
-}
 }
 </script>
 
