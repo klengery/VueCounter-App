@@ -80,7 +80,8 @@ const routes = [
             {
                 path: "/editPool/:id",
                 name: "editPool",
-                component: EditPool
+                component: EditPool,
+                props: route => ({ id: Number(route.params.id) })
             },
             {
                 path: "/deletePool/:id"

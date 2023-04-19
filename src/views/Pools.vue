@@ -7,8 +7,10 @@
                 <div class="contentData">
                     <p>{{ pool.name }}</p>
                     <img :src="`${pool.image}`">
-                    <button><router-link v-bind:to="'/editPool/'+pool.id"> Edit </router-link></button>
-                    <button><router-link v-bind:to="'/deletePool/'+pool.id"> Delete </router-link></button>
+                    <button>
+                        <router-link v-bind:to="{ name: 'editPool', params: { id: pool.id } }"> Edit </router-link>
+                    </button>
+                    <!-- <button><router-link v-bind:to="'/deletePool/'+pool.id"> Delete </router-link></button> -->
                 </div>
             </li>
         </ul>

@@ -11,5 +11,11 @@ export default {
     },
     createPool(data){
         return axios.post(baseUrl + 'api-football/pools', data,  { headers: auth.authHeader() })
+    },
+    getPoolById(id, data){
+        return axios.get(baseUrl + `api-football/pools/${id}`, data, { headers: auth.authHeader() })
+    },
+    updatePool(id, data){
+        return axios.post(baseUrl + `api-football/pools/${id}`, data, { headers: auth.authHeader() })
     }
 }
