@@ -17,5 +17,8 @@ export default {
     },
     updatePool(id, data){
         return axios.post(baseUrl + `api-football/pools/${id}`, data, { headers: auth.authHeader() })
+    },
+    deletePool(id){
+        return axios.delete(baseUrl + `api-football/pools/${id}`, { headers: auth.authHeader() })
     }
 }

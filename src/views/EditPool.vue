@@ -125,10 +125,10 @@ methods:{
         // Object.assign(data, {image: this.currentPool.image})
         console.log(data)
         var poolUpdated = await pool.updatePool(this.pool_id, data)
-        var dataUp = poolUpdated.data.data
-        console.log(dataUp)
+        let poolUp = poolUpdated.data.data
+        console.log(poolUp)
 
-        store.updatePool(poolUpdated)
+        store.updatePool(poolUp)
 
         this.$router.push('/poolState')
         

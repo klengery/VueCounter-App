@@ -15,9 +15,13 @@ export const poolStore = defineStore('pool', {
             console.log(this.pools)
         },
         updatePool(poolUp){
-            const idx = this.pools.map(r => r.id).indexOf(this.pools.id)
-            console.log(idx)
-            this.pools[idx] = poolUp
+            console.log(this.pools)
+            console.log(poolUp.id)
+            this.pools.forEach(element => {
+                // console.log(element.id)
+                if(element.id == poolUp.id)
+                this.pools[element] = poolUp
+            });
         }
     },
     getters: {
