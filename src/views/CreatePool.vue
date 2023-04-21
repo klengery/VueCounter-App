@@ -16,11 +16,6 @@
                 <span class="focus-input100"></span>
             </div>
 
-            <div class="wrap-input100 validate-input" data-validate = "Enter a mail">
-                <input v-model="email" class="input100" type="email" placeholder="Correo" required>
-                <span class="focus-input100"></span>
-            </div>
-
             <div class="wrap-input100 validate-input" data-validate = "Enter a image">
                 <input type="file" @change="previewFiles" name="image" multiple>
                 <span class="focus-input100"></span>
@@ -77,7 +72,6 @@ data(){
         name: "",
         description: "",
         image: null,
-        email: "",
         is_private: 0,
         password: "",
         price: "",
@@ -100,7 +94,6 @@ methods: {
             name: this.name,
             description: this.description,
             image: this.image,
-            email: this.email,
             is_private: this.is_private ? 1 : 0 ,
             price: this.price,
             currency_id: this.currency_id
@@ -125,7 +118,7 @@ methods: {
         this.is_private === true ? passDiv.style.display='block' : passDiv.style.display='none'
     },
     previewFiles(event) {
-        console.log(event.target.files)
+        console.log(event.target.files[0])
         this.image = event.target.files[0]
       
     }

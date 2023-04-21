@@ -1,4 +1,5 @@
 import { defineStore } from 'pinia';
+import pool from './pool';
 
 export const poolStore = defineStore('pool', {
     state: () => ({
@@ -12,6 +13,11 @@ export const poolStore = defineStore('pool', {
             this.pools.push(newPool)
             console.log('the state was update')
             console.log(this.pools)
+        },
+        updatePool(poolUp){
+            const idx = this.pools.map(r => r.id).indexOf(this.pools.id)
+            console.log(idx)
+            this.pools[idx] = poolUp
         }
     },
     getters: {

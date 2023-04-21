@@ -4,48 +4,44 @@
             Edit Pool
         </span>
         
-        <form class="login100-form validate-form p-b-33 p-t-5" @submit.prevent="createPool">
+        <form class="login100-form validate-form p-b-33 p-t-5" @submit.prevent="updatePool">
 
             <div class="wrap-input100 validate-input" data-validate = "Enter a pool name">
-                <input v-model="name" class="input100" type="text" placeholder="Name">
+                <input v-if="currentPool" v-model="currentPool.name" class="input100" type="text" placeholder="Name">
                 <span class="focus-input100"></span>
             </div>
 
             <div class="wrap-input100 validate-input" data-validate = "Enter a description">
-                <input v-model="description" class="input100" type="text" placeholder="Description">
-                <span class="focus-input100"></span>
-            </div>
-
-            <div class="wrap-input100 validate-input" data-validate = "Enter a mail">
-                <input v-model="email" class="input100" type="email" placeholder="Correo">
+                <input v-if="currentPool" v-model="currentPool.description" class="input100" type="text" placeholder="Description">
                 <span class="focus-input100"></span>
             </div>
 
             <div class="wrap-input100 validate-input" data-validate = "Enter a image">
-                <input type="file" @change="previewFiles" name="image" multiple>
+                <img v-if="currentPool" :src="currentPool.image"/>
+                <input  type="file" @change="previewFiles" name="image" multiple required>
                 <span class="focus-input100"></span>
             </div>
 
             <div class="wrap-input100 validate-input" data-validate = "Is private?">
-                <input type="checkbox" id="checkbox" v-model="is_private" @change="showInput()">
+                <input type="checkbox" id="checkbox" v-if="currentPool" v-model="currentPool.is_private" @change="showInput()">
                 <label for="checkbox">{{ is_private === 0 ? 'false' : 'true' }}</label>
                 <input class="input100" type="password" placeholder="Is private?">
                 <span class="focus-input100"></span>
             </div>
 
             <div class="wrap-input100 validate-input" style="display: none;" id="password" data-validate = "Enter a password">
-                <input v-model="password" class="input100" type="password" placeholder="Password">
+                <input v-if="currentPool" v-model="currentPool.password" class="input100" type="password" placeholder="Password">
                 <span class="focus-input100"></span>
             </div>
 
             <div class="wrap-input100 validate-input" data-validate = "Enter a price">
-                <input v-model="price" class="input100" type="number" placeholder="Price">
+                <input v-if="currentPool" v-model="currentPool.price" class="input100" type="number" placeholder="Price">
                 <span class="focus-input100"></span>
             </div>
 
             <div class="wrap-input100 validate-input" data-validate="Enter a coin">
                 <p class="input100" style="text-align: left;">Currency</p>
-                <select id="currency" name="currency" v-model="currency_id" class="input100">
+                <select id="currency" name="currency" v-if="currentPool" v-model="currentPool.currency_id" class="input100">
                     <option value="1">USD</option>
                     <option value="2">COP</option>
                     <option value="3">BsF</option>
@@ -79,12 +75,12 @@ data(){
         name: "",
         description: "",
         image: null,
-        email: "",
         is_private: 0,
         password: "",
         price: "",
         currency_id: null,
-        pool_id: null
+        pool_id: null,
+        _method: null
     }
 },
 props: {
@@ -97,7 +93,7 @@ created(){
     this.pool_id = this.id
     console.log(this.pool_id)
     this.getUser()
-    // this.getPool()
+    this.getPool()
 },
 methods:{
     getUser(){
@@ -106,21 +102,36 @@ methods:{
     },
     async getPool(){
         var poolActual = await pool.getPoolById(this.id)
-        this.currentPool = poolActual
+        var {data} = poolActual.data
+        this.currentPool = data
+        this.currentPool.image = "https://api.sogcial.com/storage/"+data.image
+        
     },
     async updatePool(){
         const data = {
             user_id: this.user_id,
-            name: this.name,
-            description: this.description,
+            name: this.currentPool.name,
+            description: this.currentPool.description,
             image: this.image,
-            email: this.email,
-            is_private: this.is_private ? 1 : 0 ,
-            price: this.price,
-            currency_id: this.currency_id
+            is_private: this.currentPool.is_private ? 1 : 0 ,
+            price: this.currentPool.price,
+            currency_id: this.currentPool.currency_id,
+            _method: "PUT"
         }
 
-        var poolUpdated = await pool.updatePool(data)
+        if(this.is_private==1)
+            Object.assign(data, { password: this.password })
+
+        // Object.assign(data, {image: this.currentPool.image})
+        console.log(data)
+        var poolUpdated = await pool.updatePool(this.pool_id, data)
+        var dataUp = poolUpdated.data.data
+        console.log(dataUp)
+
+        store.updatePool(poolUpdated)
+
+        this.$router.push('/poolState')
+        
     },
     showInput(){
         const passDiv = document.getElementById('password')
@@ -129,6 +140,7 @@ methods:{
     previewFiles(event) {
         console.log(event.target.files)
         this.image = event.target.files[0]
+        // this.currentPool.image = this.image
       
     }
 
