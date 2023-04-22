@@ -10,7 +10,7 @@
                     <button>
                         <router-link v-bind:to="{ name: 'editPool', params: { id: pool.id } }"> Edit </router-link>
                     </button>
-                    <!-- <button><router-link v-bind:to="'/deletePool/'+pool.id"> Delete </router-link></button> -->
+                    <button @click="deletePool(pool.id)"> Delete </button>
                 </div>
             </li>
         </ul>
@@ -47,6 +47,14 @@ export default {
             console.log(this.pools)
 
             store.setPool(this.pools)
+        },
+        async deletePool(id){
+            const poolToDelete = await pool.deletePool(id)
+            
+            store.deletePool(poolToDelete)
+            console.log(id)
+
+            this.$router.push('/poolState')
         }
     }
 }

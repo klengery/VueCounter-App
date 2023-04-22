@@ -83,9 +83,10 @@ const routes = [
                 component: EditPool,
                 props: route => ({ id: Number(route.params.id) })
             },
-            {
-                path: "/deletePool/:id"
-            }
+            // {
+            //     path: "/deletePool/:id",
+            //     props: route => ({ id: Number(route.params.id) })
+            // }
         ]
     }
 ]
