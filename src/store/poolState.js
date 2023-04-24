@@ -21,7 +21,8 @@ export const poolStore = defineStore('pool', {
             this.pools[index] = poolUp
         },
         deletePool(poolToDelete){
-            const index = this.pools.findIndex(element => element.id == poolToDelete.id)
+            console.log(poolToDelete)
+            const index = this.pools.findIndex(element => element.id == poolToDelete)
             this.pools.splice(index, 1)
         }
     },

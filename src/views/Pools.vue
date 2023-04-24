@@ -50,8 +50,9 @@ export default {
         },
         async deletePool(id){
             const poolToDelete = await pool.deletePool(id)
+            console.log(poolToDelete)
             
-            store.deletePool(poolToDelete)
+            store.deletePool(id)
             console.log(id)
 
             this.$router.push('/poolState')
