@@ -15,6 +15,7 @@ const Pools = () => import("@/views/Pools.vue")
 const PoolState = () => import("@/views/PoolState.vue")
 const CreatePool = () => import("@/views/CreatePool")
 const EditPool = () => import("@/views/EditPool")
+const Post = () => import("@/views/Post")
 
 
 const routes = [
@@ -83,10 +84,11 @@ const routes = [
                 component: EditPool,
                 props: route => ({ id: Number(route.params.id) })
             },
-            // {
-            //     path: "/deletePool/:id",
-            //     props: route => ({ id: Number(route.params.id) })
-            // }
+            {
+                path: "/post",
+                name: "post",
+                component: Post
+            }
         ]
     }
 ]

@@ -52,7 +52,7 @@
             <!-- <p v-if="error" class="error">Has introducido mal algun dato.</p> -->
             
             <div class="container-login100-form-btn m-t-32">
-                <button class="login100-form-btn">
+                <button class="login100-form-btn" @click="toPost()">
                     Update
                 </button>
             </div>
@@ -80,7 +80,8 @@ data(){
         price: "",
         currency_id: null,
         pool_id: null,
-        _method: null
+        _method: null,
+        poolToSent: null
     }
 },
 props: {
@@ -128,9 +129,11 @@ methods:{
         let poolUp = poolUpdated.data.data
         console.log(poolUp)
 
+        this.poolToSent = poolUp
+
         store.updatePool(poolUp)
 
-        this.$router.push('/poolState')
+        this.$router.push('/post')
         
     },
     showInput(){
@@ -142,6 +145,10 @@ methods:{
         this.image = event.target.files[0]
         // this.currentPool.image = this.image
       
+    },
+    toPost(){
+        this.$emit("click", this.poolToSent)
+        console.log('funciona')
     }
 
 }
