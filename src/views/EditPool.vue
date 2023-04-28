@@ -52,7 +52,7 @@
             <!-- <p v-if="error" class="error">Has introducido mal algun dato.</p> -->
             
             <div class="container-login100-form-btn m-t-32">
-                <button class="login100-form-btn" @click="toPost()">
+                <button class="login100-form-btn" >
                     Update
                 </button>
             </div>
@@ -64,10 +64,12 @@
 import auth from "@/store/auth"
 import pool from '@/store/pool'
 import { poolStore } from '@/store/poolState'
+import { defineComponent, inject } from "vue";
 
 const store = poolStore()
+const emitter = inject("emitter")
 
-export default {
+export default defineComponent({ 
 data(){
     return{
         currentPool: null,
@@ -124,12 +126,10 @@ methods:{
             Object.assign(data, { password: this.password })
 
         // Object.assign(data, {image: this.currentPool.image})
-        console.log(data)
         var poolUpdated = await pool.updatePool(this.pool_id, data)
         let poolUp = poolUpdated.data.data
-        console.log(poolUp)
 
-        this.poolToSent = poolUp
+        this.emitter.emit("postUp", poolUp)
 
         store.updatePool(poolUp)
 
@@ -145,15 +145,11 @@ methods:{
         this.image = event.target.files[0]
         // this.currentPool.image = this.image
       
-    },
-    toPost(){
-        this.$emit("click", this.poolToSent)
-        console.log('funciona')
     }
 
 }
 
-}
+})
 </script>
 
 <style>

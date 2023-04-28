@@ -12,12 +12,10 @@ export const poolStore = defineStore('pool', {
         newPool(newPool){
             this.pools.push(newPool)
             console.log('the state was update')
-            console.log(this.pools)
         },
         updatePool(poolUp){
             console.log(poolUp.id)
             const index = this.pools.findIndex(element => element.id == poolUp.id)
-            console.log(index)
             this.pools[index] = poolUp
         },
         deletePool(poolToDelete){

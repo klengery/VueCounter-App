@@ -1,7 +1,6 @@
 <template>
   <div>
     <div>
-        <button @click="toPost()">Get poolUp</button>
         <ul>
             <li v-for=" post in posts" :key="post">
                 <div class="contentData">
@@ -18,6 +17,7 @@
 import post from '@/store/post'
 import { postStore } from '@/store/postState'
 import poolEdit from '@/views/EditPool.vue'
+import { inject, onMounted } from "vue";
 
 const store = postStore()
 
@@ -32,15 +32,20 @@ data(){
 },
 created(){
   this.getPost()
+  this.emitter.on("postUp",this.postUp)
 },
 methods: {
   async getPost(){
     const response = await post.getPost()
     this.posts = response.data
-    store.getPosts(this.posts)
+    store.setPosts(this.posts)
   },
-  toPost(info){
-    console.log("Click event on the button of the children with: " + info)
+  postUp(pool){
+    console.log('Recibe', pool)
+
+    store.updatePost(pool)
+
+    this.emitter.off("postUp")
   }
 }
 }

@@ -4,6 +4,7 @@ import App from './App.vue'
 import router from './router'
 import VueAxios from 'vue-axios'
 import auth from './store/auth'
+import mitt from 'mitt'
 
 import './css/styles.css'
 
@@ -30,8 +31,11 @@ router.beforeEach((to, from, next) => {
 
 const app = createApp(App);
 const pinia = createPinia()
+const emitter = mitt()
 
 app.use(pinia)
+// app.provide('emitter', emitter)
+app.config.globalProperties.emitter = emitter;
 app.use(router);
 
 app.component('HeaderMain', defineAsyncComponent(() => import("@/components/HeaderMain.vue")));
