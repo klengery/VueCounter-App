@@ -11,11 +11,11 @@ export const postStore = defineStore('post', {
             console.log(this.post)
         },
         updatePost(postUpdated){
-            const x = this.post.find(element => element.id == postUpdated.id)
-            let index = x.id
-            this.post[index].title = postUpdated.name
-            console.log(this.post[index])
-            console.log('Esto es index', index)
+            const x = this.post.findIndex(element => element.id == postUpdated.id)
+            // let index = x.id
+            this.post[x].title = postUpdated.name
+            console.log(this.post[x])
+            console.log('Esto es index', x)
         }
     },
     getters: {
